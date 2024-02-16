@@ -9,7 +9,7 @@ Ian Bishop
 
 ## About
 
-This repository contains the source code and assets for the ozian.au website. It is hosted on Cloudflare and the domain is registered on BinaryLane.
+This repository contains the source code and assets for the ozian.au website. It is hosted on Cloudflare published with github pages and the domain is registered on BinaryLane.
 
 ## Setup
 
