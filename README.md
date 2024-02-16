@@ -1,4 +1,4 @@
-# Ozian.au Website Repository
+# ozian.au Website Repository
 
 This is the code repository for the ozian.au website hosted on Cloudflare. The domain ozian.au is registered on BinaryLane in Melbourne, Australia. Cloudflare DNS servers have been set up in the 
 ozian.au DNS settings at the domain host (BinaryLane).
