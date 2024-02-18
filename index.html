@@ -25,17 +25,26 @@
 <!-- <p><img src="<img.png etc>" alt="Teddy and Bella" title="Teddy & Bella"></p> -->
 
 <script>
-  // Get the current date and time
-  var currentDate = new Date();
+  // Function to update date and time
+  function updateDateTime() {
+    // Get the current date and time
+    var currentDate = new Date();
 
-  // Format the date
-  var formattedDate = currentDate.toLocaleDateString('en-AU', { day: '2-digit', month: '2-digit', year: 'numeric' });
+    // Format the date
+    var formattedDate = currentDate.toLocaleDateString('en-AU', { day: '2-digit', month: '2-digit', year: 'numeric' });
 
-  // Format the time
-  var formattedTime = currentDate.toLocaleTimeString('en-AU', { hour12: false });
+    // Format the time
+    var formattedTime = currentDate.toLocaleTimeString('en-AU', { hour12: false });
 
-  // Get the element with id="date-time" and set its innerHTML to the formatted time and date
-  document.getElementById("date-time").innerHTML = formattedTime + ", " + formattedDate;
+    // Get the element with id="date-time" and set its innerHTML to the formatted time and date
+    document.getElementById("date-time").innerHTML = formattedTime + ", " + formattedDate;
+  }
+
+  // Call the function initially
+  updateDateTime();
+
+  // Update the time every second
+  setInterval(updateDateTime, 1000);
 </script>
 </body>
 </html>
