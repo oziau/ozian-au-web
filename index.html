@@ -11,21 +11,6 @@
       font-family: Arial, sans-serif;
     }
   </style>
-
-<script>
-  // Get the current date and time
-  var currentDate = new Date();
-  
-  // Format the date
-  var formattedDate = currentDate.toLocaleDateString('en-AU', { day: '2-digit', month: '2-digit', year: 'numeric' });
-  
-  // Format the time
-  var formattedTime = currentDate.toLocaleTimeString('en-AU', { hour12: false });
-
-  // Get the element with id="date-time" and set its innerHTML to the formatted time and date
-  document.getElementById("date-time").innerHTML = formattedTime + ", " + formattedDate;
-</script>
-
 </head>
 <body>
 
@@ -38,4 +23,19 @@
 
 <h2>Pictures:</h2>
 <!-- <p><img src="<img.png etc>" alt="Teddy and Bella" title="Teddy & Bella"></p> -->
+
+<script>
+  // Get the current date and time
+  var currentDate = new Date();
+
+  // Format the date
+  var formattedDate = currentDate.toLocaleDateString('en-AU', { day: '2-digit', month: '2-digit', year: 'numeric' });
+
+  // Format the time
+  var formattedTime = currentDate.toLocaleTimeString('en-AU', { hour12: false });
+
+  // Get the element with id="date-time" and set its innerHTML to the formatted time and date
+  document.getElementById("date-time").innerHTML = formattedTime + ", " + formattedDate;
+</script>
 </body>
+</html>
