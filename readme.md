@@ -13,9 +13,10 @@ This repository contains the source code and assets for the ozian.au website. It
 
 ## Setup
 
+## Managed by binarylane vps
+
 To set up this project locally, you will need to clone this repository to your local machine:
 
 ```bash
 git clone https://github.com/oziau/ozian-au-web.git
 
-## Managed by binarylane vps 
