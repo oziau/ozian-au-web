@@ -17,3 +17,5 @@ To set up this project locally, you will need to clone this repository to your l
 
 ```bash
 git clone https://github.com/oziau/ozian-au-web.git
+
+## Managed by binarylane vps 
