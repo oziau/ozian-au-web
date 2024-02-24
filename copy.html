@@ -46,20 +46,23 @@
 <script>
   // Function to update date and time
   function updateDateTime() {
-    // Get the current date and time
+    // Get the current date and time in UTC
     var currentDate = new Date();
 
     // Convert the time to AEDT (Australian Eastern Daylight Time) which is UTC+11
-    currentDate.setHours(currentDate.getHours() + 11);
+    currentDate.setUTCHours(currentDate.getUTCHours() + 11);
 
     // Format the date
     var formattedDate = currentDate.toLocaleDateString('en-AU', { day: '2-digit', month: '2-digit', year: 'numeric' });
 
     // Format the time
-    var formattedTime = currentDate.toLocaleTimeString('en-AU', { hour: 'numeric', minute: '2-digit', hour12: true });
+    var formattedTime = currentDate.toLocaleTimeString('en-AU', { hour: 'numeric', minute: '2-digit' });
+
+    // Determine if it's AM or PM
+    var amOrPm = currentDate.getHours() < 12 ? "AM" : "PM";
 
     // Get the element with id="date-time" and set its innerHTML to the formatted time and date
-    document.getElementById("date-time").innerHTML = formattedTime + ", " + formattedDate;
+    document.getElementById("date-time").innerHTML = formattedTime + " " + amOrPm + ", " + formattedDate;
   }
 
   // Call the function initially
@@ -68,6 +71,7 @@
   // Update the time every minute
   setInterval(updateDateTime, 60000); // Update every minute (60000 milliseconds)
 </script>
+
 
 </body>
 </html>
