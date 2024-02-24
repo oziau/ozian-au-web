@@ -1,4 +1,4 @@
-\<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -43,20 +43,19 @@
 <p><img src="bt23-rs6.jpg" alt="Teddy and Bella" title="Teddy & Bella"></p>
 <p><img src="bt23-rs7.jpg" alt="Teddy and Bella" title="Teddy & Bella"></p>
 
+
+
 <script>
   // Function to update date and time
   function updateDateTime() {
     // Get the current date and time
     var currentDate = new Date();
 
-    // Convert the time to AEDT (Australian Eastern Daylight Time) which is UTC+11
-    currentDate.setHours(currentDate.getHours() + 11);
-
     // Format the date
     var formattedDate = currentDate.toLocaleDateString('en-AU', { day: '2-digit', month: '2-digit', year: 'numeric' });
 
     // Format the time
-    var formattedTime = currentDate.toLocaleTimeString('en-AU', { hour: 'numeric', minute: '2-digit', hour12: true });
+    var formattedTime = currentDate.toLocaleTimeString('en-AU', { hour12: false });
 
     // Get the element with id="date-time" and set its innerHTML to the formatted time and date
     document.getElementById("date-time").innerHTML = formattedTime + ", " + formattedDate;
@@ -65,9 +64,8 @@
   // Call the function initially
   updateDateTime();
 
-  // Update the time every minute
-  setInterval(updateDateTime, 60000); // Update every minute (60000 milliseconds)
+  // Update the time every second
+  setInterval(updateDateTime, 1000);
 </script>
-
 </body>
 </html>
