@@ -49,7 +49,7 @@
     // Get the current date and time in UTC
     var currentDate = new Date();
 
-    // Convert the time to AEDT (Australian Eastern Daylight Time) which is UTC+11
+    // Convert the time to AEDT (Australian Eastern Daylight Time) which is UTC+11 during daylight saving time
     currentDate.setUTCHours(currentDate.getUTCHours() + 11);
 
     // Format the date
