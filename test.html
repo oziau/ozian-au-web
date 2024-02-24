@@ -23,8 +23,11 @@
       // Format the date
       var formattedDate = currentDate.toLocaleDateString('en-AU', { day: '2-digit', month: '2-digit', year: 'numeric' });
 
+      // Determine if it's AM or PM
+      var amOrPm = currentDate.getHours() < 12 ? "AM" : "PM";
+
       // Get the element with id="date-time" and set its innerHTML to the formatted time and date
-      document.getElementById("date-time").innerHTML = formattedTime + "<br>" + formattedDate;
+      document.getElementById("date-time").innerHTML = formattedTime + " " + amOrPm + "<br>" + formattedDate;
     }
 
     // Call the function initially
