@@ -43,29 +43,17 @@
 <p><img src="bt23-rs6.jpg" alt="Teddy and Bella" title="Teddy & Bella"></p>
 <p><img src="bt23-rs7.jpg" alt="Teddy and Bella" title="Teddy & Bella"></p>
 
-<script>
+  <script>
     // Function to update date and time
     function updateDateTime() {
-      // Get the current date and time in UTC
+      // Get the current date and time in Hobart time zone
       var currentDate = new Date();
-
-      // Convert the time to AEDT (Australian Eastern Daylight Time) which is UTC+11 during daylight saving time
-      currentDate.setUTCHours(currentDate.getUTCHours() + 11);
-
-      // Format the date
-      var formattedDate = currentDate.toLocaleDateString('en-AU', { day: '2-digit', month: '2-digit', year: 'numeric' });
-
-      // Format the time
-      var formattedTime = currentDate.toLocaleTimeString('en-AU', { hour: 'numeric', minute: '2-digit' });
-
-      // Determine if it's AM or PM
-      var amOrPm = currentDate.getHours() < 12 ? "am" : "pm";
-
-      // Get the hour in 12-hour format
-      var hour12 = currentDate.getHours() % 12 || 12;
+      var options = { timeZone: 'Australia/Hobart' };
+      var formattedDate = currentDate.toLocaleDateString('en-AU', options);
+      var formattedTime = currentDate.toLocaleTimeString('en-AU', { hour: 'numeric', minute: '2-digit', hour12: true });
 
       // Get the element with id="date-time" and set its innerHTML to the formatted time and date
-      document.getElementById("date-time").innerHTML = formattedTime + " " + amOrPm + ", " + formattedDate;
+      document.getElementById("date-time").innerHTML = formattedTime + "<br>" + formattedDate;
     }
 
     // Call the function initially
