@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <h2>Please enter your username and password</h2>
+    <form onsubmit="return authenticate()">
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username"><br><br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password"><br><br>
+        <input type="submit" value="Login">
+    </form>
+
+    <script>
+        function authenticate() {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+            if (username === "ian" && password === "Yellow002@") {
+                window.location.href = "protectedContent.html";  // redirect to protected content
+                return false;
+            } else {
+                alert("Incorrect credentials. Try again.");
+                return false;
+            }
+        }
+    </script>
+</body>
+</html>

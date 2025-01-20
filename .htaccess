@@ -1,5 +1,0 @@
-AuthType Basic
-AuthName “Restricted Area”
-AuthUserFile oziau/ozian-au-web/.htpasswd
-Require valid-user
-
