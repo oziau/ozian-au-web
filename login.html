@@ -1,0 +1,54 @@
+<!-- login.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Journal Login</title>
+  <script src="https://unpkg.com/@simplewebauthn/browser/dist/bundle/index.umd.min.js"></script>
+</head>
+<body>
+  <h1>My Journal Login</h1>
+  <input type="text" id="username" placeholder="Your name">
+  <button onclick="register()">Create Passkey</button>
+  <button onclick="login()">Login with Passkey</button>
+
+  <script>
+    const username = document.getElementById('username');
+    
+    async function register() {
+      const options = await fetch('/register/start', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: username.value })
+      }).then(res => res.json());
+
+      const creationResponse = await SimpleWebAuthnBrowser.startRegistration(options);
+      
+      const verification = await fetch('/register/finish', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...creationResponse, username: username.value })
+      }).then(res => res.json());
+      
+      if (verification.verified) alert('Passkey created!');
+    }
+
+    async function login() {
+      const options = await fetch('/login/start', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: username.value })
+      }).then(res => res.json());
+
+      const assertionResponse = await SimpleWebAuthnBrowser.startAuthentication(options);
+      
+      const verification = await fetch('/login/finish', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...assertionResponse, username: username.value })
+      }).then(res => res.json());
+      
+      if (verification.verified) window.location.href = '/journal';
+    }
+  </script>
+</body>
+</html>
