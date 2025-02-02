@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Chessboard</title>
+    <style>
+        #board {
+            display: grid;
+            grid-template-columns: repeat(8, 50px);
+            grid-template-rows: repeat(8, 50px);
+            width: 400px;
+            height: 400px;
+            margin: 20px auto;
+        }
+        .square {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .white {
+            background-color: #fff;
+        }
+        .black {
+            background-color: #555;
+        }
+        img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        .captured-pieces {
+            display: flex;
+            flex-wrap: wrap;
+            width: 400px;
+            margin: 20px auto;
+        }
+        .captured-pieces img {
+            width: 25px;
+            height: 25px;
+        }
+        .controls {
+            width: 400px;
+            margin: 20px auto;
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+</head>
+<body>
+    <div id="board"></div>
+    <div class="captured-pieces" id="white-captured"></div>
+    <div class="captured-pieces" id="black-captured"></div>
+    <div class="controls">
+        <button onclick="resetGame()">Reset Game</button>
+    </div>
+    <script>
+        const board = document.getElementById('board');
+        const whiteCaptured = document.getElementById('white-captured');
+        const blackCaptured = document.getElementById('black-captured');
+        const pieces = [
+            'w_rook', 'w_knight', 'w_bishop', 'w_queen', 'w_king', 'w_bishop', 'w_knight', 'w_rook',
+            'w_pawn', 'w_pawn', 'w_pawn', 'w_pawn', 'w_pawn', 'w_pawn', 'w_pawn', 'w_pawn',
+            '', '', '', '', '', '', '', '',
+            '', '', '', '', '', '', '', '',
+            '', '', '', '', '', '', '', '',
+            '', '', '', '', '', '', '', '',
+            'b_pawn', 'b_pawn', 'b_pawn', 'b_pawn', 'b_pawn', 'b_pawn', 'b_pawn', 'b_pawn',
+            'b_rook', 'b_knight', 'b_bishop', 'b_queen', 'b_king', 'b_bishop', 'b_knight', 'b_rook'
+        ];
+        const pieceUrls = {
+            'w_pawn': 'https://raw.githubusercontent.com/oakmac/chessboardjs/v0.3.0/img/chesspieces/wikipedia/wP.png',
+            'b_pawn': 'https://raw.githubusercontent.com/oakmac/chessboardjs/v0.3.0/img/chesspieces/wikipedia/bP.png',
+            'w_rook': 'https://raw.githubusercontent.com/oakmac/chessboardjs/v0.3.0/img/chesspieces/wikipedia/wR.png',
+            'b_rook': 'https://raw.githubusercontent.com/oakmac/chessboardjs/v0.3.0/img/chesspieces/wikipedia/bR.png',
+            'w_knight': 'https://raw.githubusercontent.com/oakmac/chessboardjs/v0.3.0/img/chesspieces/wikipedia/wN.png',
+            'b_knight': 'https://raw.githubusercontent.com/oakmac/chessboardjs/v0.3.0/img/chesspieces/wikipedia/bN.png',
+            'w_bishop': 'https://raw.githubusercontent.com/oakmac/chessboardjs/v0.3.0/img/chesspieces/wikipedia/wB.png',
+            'b_bishop': 'https://raw.githubusercontent.com/oakmac/chessboardjs/v0.3.0/img/chesspieces/wikipedia/bB.png',
+            'w_queen': 'https://raw.githubusercontent.com/oakmac/chessboardjs/v0.3.0/img/chesspieces/wikipedia/wQ.png',
+            'b_queen': 'https://raw.githubusercontent.com/oakmac/chessboardjs/v0.3.0/img/chesspieces/wikipedia/bQ.png',
+            'w_king': 'https://raw.githubusercontent.com/oakmac/chessboardjs/v0.3.0/img/chesspieces/wikipedia/wK.png',
+            'b_king': 'https://raw.githubusercontent.com/oakmac/chessboardjs/v0.3.0/img/chesspieces/wikipedia/bK.png'
+        };
+        const game = new Chess();
+        let isWhite = true;
+        const initializeBoard = () => {
+            board.innerHTML = '';
+            whiteCaptured.innerHTML = '';
+            blackCaptured.innerHTML = '';
+            isWhite = true;
+            for (let i = 0; i < 64; i++) {
+                const square = document.createElement('div');
+                square.className = 'square ' + (isWhite ? 'white' : 'black');
+                if (pieces[i]) {
+                    const img = document.createElement('img');
+                    img.src = pieceUrls[pieces[i]];
+                    img.draggable = true;
+                    img.id = 'piece-' + i;
+                    img.addEventListener('dragstart', (e) => {
+                        e.dataTransfer.setData('text', e.target.id);
+                    });
+                    square.appendChild(img);
+                }
+                board.appendChild(square);
+                square.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                });
+                square.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    const data = e.dataTransfer.getData('text');
+                    const piece = document.getElementById(data);
+                    const fromIndex = Array.from(board.children).indexOf(piece.parentElement);
+                    const toIndex = Array.from(board.children).indexOf(e.target.closest('.square'));
+                    const from = String.fromCharCode(97 + (fromIndex % 8)) + (8 - Math.floor(fromIndex / 8));
+                    const to = String.fromCharCode(97 + (toIndex % 8)) + (8 - Math.floor(toIndex / 8));
+                    const move = game.move({ from, to });
+                    if (move) {
+                        const targetSquare = e.target.closest('.square');
+                        if (targetSquare.childElementCount > 0) {
+                            const capturedPiece = targetSquare.firstChild;
+                            const capturedImg = document.createElement('img');
+                            capturedImg.src = capturedPiece.src;
+                            if (capturedPiece.src.includes('b')) {
+                                whiteCaptured.appendChild(capturedImg);
+                            } else {
+                                blackCaptured.appendChild(capturedImg);
+                            }
+                            targetSquare.innerHTML = '';
+                        }
+                        targetSquare.appendChild(piece);
+                    }
+                });
+                isWhite = !isWhite;
+                if (i % 8 === 7) isWhite = !isWhite;
+            }
+        };
+        const resetGame = () => {
+            game.reset();
+            initializeBoard();
+        };
+        initializeBoard();
+    </script>
+</body>
+</html>
