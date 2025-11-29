@@ -11,9 +11,14 @@ Ian Alexander
 
 This repository contains the source code and assets for the ozian.au website. It is hosted on Cloudflare published with github pages and the domain is registere with ventraip https://ventraip.com.au/.
 
-This repo serves both
+This repo serves the following sites
 https://ozian.au/ian.html
 https://ozian.au/susan.html
+
+NOTE: To re-activate Susan's website
+1. rename 'susan.html' to 'susan.htmlOFF'
+2. rename 'susan.html.OFF' to 'susan.html'
+3. navigate to https://ozian.au/susan.html
 
 ## Setup
 ## Domain ozian.au registered and managed by ventraip https://ventraip.com.au/
